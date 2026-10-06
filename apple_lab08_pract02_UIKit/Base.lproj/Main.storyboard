@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7ge-GZ-95a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7ge-GZ-95a">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,6 +30,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7ge-GZ-95a" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cge-dF-VMy">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -42,11 +43,11 @@
             </objects>
             <point key="canvasLocation" x="-960" y="334"/>
         </scene>
-        <!--Item-->
+        <!--List-->
         <scene sceneID="pqf-6J-IjZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4rU-aH-ejV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="BRa-66-j2V"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list.bullet" catalog="system" id="BRa-66-j2V"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="X3i-ar-M8H">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -77,11 +78,11 @@
             </objects>
             <point key="canvasLocation" x="1902" y="717"/>
         </scene>
-        <!--Item-->
+        <!--Calculator-->
         <scene sceneID="Rn2-z6-mBI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zwW-NK-4Bs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Ghe-gB-Cof"/>
+                    <tabBarItem key="tabBarItem" title="Calculator" image="function" catalog="system" id="Ghe-gB-Cof"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="5Yh-pj-BTZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UC0-Te-i4v">
@@ -99,6 +100,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="function" catalog="system" width="128" height="69"/>
+        <image name="list.bullet" catalog="system" width="128" height="87"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
