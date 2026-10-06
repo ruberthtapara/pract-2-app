@@ -12,96 +12,31 @@ struct Teacher {
     let color: UIColor
 }
 
-class TeacherTableViewCell: UITableViewCell {
-    static let identifier = "TeacherTableViewCell"
+class TeacherCell: UITableViewCell {
+    static let identifier = "TeacherCell"
 
-    private let avatarContainer = UIView()
-    private let initialsLabel = UILabel()
-    private let nameLabel = UILabel()
-    private let courseLabel = UILabel()
-    private let arrowImageView = UIImageView()
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupViews()
-    }
-
-    private func setupViews() {
-        selectionStyle = .none
-        backgroundColor = .white
-
-        avatarContainer.translatesAutoresizingMaskIntoConstraints = false
-        avatarContainer.layer.cornerRadius = 24
-        avatarContainer.clipsToBounds = true
-        contentView.addSubview(avatarContainer)
-
-        initialsLabel.translatesAutoresizingMaskIntoConstraints = false
-        initialsLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        initialsLabel.textAlignment = .center
-        avatarContainer.addSubview(initialsLabel)
-
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        nameLabel.textColor = .black
-        contentView.addSubview(nameLabel)
-
-        courseLabel.translatesAutoresizingMaskIntoConstraints = false
-        courseLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        courseLabel.textColor = UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1.0)
-        contentView.addSubview(courseLabel)
-
-        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
-        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .medium)
-        arrowImageView.image = UIImage(systemName: "chevron.right", withConfiguration: config) ?? UIImage(systemName: "chevron.down")
-        arrowImageView.tintColor = UIColor(red: 199/255, green: 199/255, blue: 204/255, alpha: 1.0)
-        arrowImageView.contentMode = .scaleAspectFit
-        contentView.addSubview(arrowImageView)
-
-        NSLayoutConstraint.activate([
-            avatarContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            avatarContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            avatarContainer.widthAnchor.constraint(equalToConstant: 48),
-            avatarContainer.heightAnchor.constraint(equalToConstant: 48),
-
-            initialsLabel.centerXAnchor.constraint(equalTo: avatarContainer.centerXAnchor),
-            initialsLabel.centerYAnchor.constraint(equalTo: avatarContainer.centerYAnchor),
-
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 18),
-            nameLabel.leadingAnchor.constraint(equalTo: avatarContainer.trailingAnchor, constant: 14),
-            nameLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -8),
-
-            courseLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
-            courseLabel.leadingAnchor.constraint(equalTo: avatarContainer.trailingAnchor, constant: 14),
-            courseLabel.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -8),
-            courseLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
-
-            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            arrowImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            arrowImageView.widthAnchor.constraint(equalToConstant: 12),
-            arrowImageView.heightAnchor.constraint(equalToConstant: 16)
-        ])
-    }
+    @IBOutlet weak var avatarContainer: UIView?
+    @IBOutlet weak var initialsLabel: UILabel?
+    @IBOutlet weak var nameLabel: UILabel?
+    @IBOutlet weak var courseLabel: UILabel?
 
     func configure(with teacher: Teacher) {
-        nameLabel.text = teacher.name
-        courseLabel.text = teacher.course
-        initialsLabel.text = teacher.initials
-        initialsLabel.textColor = teacher.color
-        avatarContainer.backgroundColor = teacher.color.withAlphaComponent(0.15)
+        nameLabel?.text = teacher.name
+        courseLabel?.text = teacher.course
+        initialsLabel?.text = teacher.initials
+        initialsLabel?.textColor = teacher.color
+        avatarContainer?.backgroundColor = teacher.color.withAlphaComponent(0.15)
+        avatarContainer?.layer.cornerRadius = 24
+        avatarContainer?.clipsToBounds = true
     }
 }
 
 class TeacherController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
-    private let searchBar = UISearchBar()
-    private let tableView = UITableView()
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
 
-    private let allTeachers: [Teacher] = [
+    let allTeachers: [Teacher] = [
         Teacher(name: "Richard Ricasca Portillo", course: "Aplicaciones Móviles Multiplataforma", initials: "RR", color: UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)),
         Teacher(name: "Jeisson Daniel Paredes Cano", course: "Desarrollo de Aplicaciones Web Avanzado", initials: "JP", color: UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1.0)),
         Teacher(name: "Renato Dietrich Usnayo Caceres", course: "Desarrollo de Aplicaciones Web Avanzado", initials: "RU", color: UIColor(red: 52/255, green: 199/255, blue: 89/255, alpha: 1.0)),
@@ -113,7 +48,7 @@ class TeacherController: UIViewController, UITableViewDataSource, UITableViewDel
         Teacher(name: "Fridda Nevenka Chara Quiroz", course: "Tutoría 5", initials: "FC", color: UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1.0))
     ]
 
-    private var filteredTeachers: [Teacher] = []
+    var filteredTeachers: [Teacher] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,42 +56,47 @@ class TeacherController: UIViewController, UITableViewDataSource, UITableViewDel
         view.backgroundColor = .white
 
         filteredTeachers = allTeachers
-        setupSearchBar()
-        setupTableView()
+
+        if searchBar == nil {
+            setupProgrammaticViews()
+        } else {
+            searchBar.delegate = self
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.rowHeight = 78
+        }
     }
 
-    private func setupSearchBar() {
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Search"
-        searchBar.delegate = self
-        searchBar.searchBarStyle = .minimal
-        searchBar.autocapitalizationType = .none
-        view.addSubview(searchBar)
+    private func setupProgrammaticViews() {
+        let sb = UISearchBar()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        sb.placeholder = "Search"
+        sb.delegate = self
+        sb.searchBarStyle = .minimal
+        view.addSubview(sb)
+
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.dataSource = self
+        tv.delegate = self
+        tv.rowHeight = 78
+        tv.separatorInset = UIEdgeInsets(top: 0, left: 78, bottom: 0, right: 16)
+        view.addSubview(tv)
 
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            searchBar.heightAnchor.constraint(equalToConstant: 44)
-        ])
-    }
+            sb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            sb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            sb.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            sb.heightAnchor.constraint(equalToConstant: 44),
 
-    private func setupTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 78, bottom: 0, right: 16)
-        tableView.separatorColor = UIColor(red: 229/255, green: 229/255, blue: 234/255, alpha: 1.0)
-        tableView.tableFooterView = UIView()
-        tableView.register(TeacherTableViewCell.self, forCellReuseIdentifier: TeacherTableViewCell.identifier)
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 6),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tv.topAnchor.constraint(equalTo: sb.bottomAnchor, constant: 6),
+            tv.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tv.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tv.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        self.searchBar = sb
+        self.tableView = tv
     }
 
     // MARK: - UITableViewDataSource
@@ -164,15 +104,20 @@ class TeacherController: UIViewController, UITableViewDataSource, UITableViewDel
         return filteredTeachers.count
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 78
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TeacherTableViewCell.identifier, for: indexPath) as? TeacherTableViewCell else {
-            return UITableViewCell()
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "TeacherCell") as? TeacherCell {
+            cell.configure(with: filteredTeachers[indexPath.row])
+            return cell
         }
-        cell.configure(with: filteredTeachers[indexPath.row])
+
+        // Fallback programmatic cell
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "DefaultCell")
+        let teacher = filteredTeachers[indexPath.row]
+        cell.textLabel?.text = teacher.name
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        cell.detailTextLabel?.text = teacher.course
+        cell.detailTextLabel?.textColor = UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1.0)
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 
